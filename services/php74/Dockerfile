@@ -8,6 +8,17 @@ ARG CONTAINER_PACKAGE_URL
 
 RUN if [ "${CONTAINER_PACKAGE_URL}" != "" ] ; then sed -i "s/dl-cdn.alpinelinux.org/${CONTAINER_PACKAGE_URL}/g" /etc/apk/repositories ; fi
 
+# 安装 Git
+RUN apk --no-cache add git
+# 安装 bash
+RUN apk --no-cache add bash
+
+# 安装 z 命令
+RUN apk --no-cache add wget \
+    && wget -qO /usr/local/bin/z.sh https://raw.githubusercontent.com/rupa/z/master/z.sh \
+    && chmod +x /usr/local/bin/z.sh \
+    && echo ". /usr/local/bin/z.sh" >> /etc/profile
+
 
 COPY ./extensions /tmp/extensions
 WORKDIR /tmp/extensions

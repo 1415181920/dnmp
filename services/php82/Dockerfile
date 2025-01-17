@@ -13,7 +13,11 @@ RUN sed -i "s|deb.debian.org|${DEBIAN_MIRROR_DOMAIN}|g" /etc/apt/sources.list.d/
 # Install required packages
 RUN export option="--no-install-recommends -y" \
     && apt-get $option update \
-    && apt-get $option install tzdata curl
+    && apt-get $option install tzdata curl \
+    && apt-get $option install git \
+    && apt-get $option install wget \
+    && apt-get $option install bash \
+    && apt-get $option install unzip \
 
 # Clean up the package list to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -27,5 +31,12 @@ RUN curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mloca
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV COMPOSER_HOME=/tmp/composer
 
+# 安装Z命令
+RUN curl -sSL https://raw.githubusercontent.com/rupa/z/master/z.sh -o /usr/local/bin/z.sh \
+    && echo ". /usr/local/bin/z.sh" >> /etc/bash.bashrc \
+    && chmod +x /usr/local/bin/z.sh
+
 # Set work directory
 WORKDIR /www
+
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
