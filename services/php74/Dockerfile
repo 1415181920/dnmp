@@ -18,6 +18,7 @@ RUN apk --no-cache add wget \
     && wget -qO /usr/local/bin/z.sh https://raw.githubusercontent.com/rupa/z/master/z.sh \
     && chmod +x /usr/local/bin/z.sh \
     && echo ". /usr/local/bin/z.sh" >> /etc/profile
+    && source /etc/profile
 
 
 COPY ./extensions /tmp/extensions
