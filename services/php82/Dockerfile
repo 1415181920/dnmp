@@ -33,8 +33,9 @@ ENV COMPOSER_HOME=/tmp/composer
 
 # 安装Z命令
 RUN curl -sSL https://raw.githubusercontent.com/rupa/z/master/z.sh -o /usr/local/bin/z.sh \
-    && echo ". /usr/local/bin/z.sh" >> /etc/bash.bashrc \
+    && echo ". /usr/local/bin/z.sh" >> /etc/profile \
     && chmod +x /usr/local/bin/z.sh
+    && source /etc/profile
 
 # Set work directory
 WORKDIR /www
