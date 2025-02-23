@@ -17,7 +17,7 @@ RUN export option="--no-install-recommends -y" \
     && apt-get $option install git \
     && apt-get $option install wget \
     && apt-get $option install bash \
-    && apt-get $option install unzip \
+    && apt-get $option install unzip 
 
 # Clean up the package list to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
