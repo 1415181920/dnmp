@@ -19,27 +19,27 @@ services:
     networks:
       - default
 
-  php82:
-    build:
-      context: ./services/php82
-      args:
-        DEBIAN_MIRROR_DOMAIN: deb.debian.org
-        PHP_EXTENSIONS: "$PHP82_EXTENSIONS"
-        TZ: "$TZ"
-    container_name: php82
-    expose:
-      - 9501
-    volumes:
-      - ${SOURCE_DIR}:/www/:rw
-      - ${PHP82_PHP_CONF_FILE}:/usr/local/etc/php/php.ini
-      - ${PHP82_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf
-      - ${PHP82_LOG_DIR}:/var/log/php
-      - ${PHP82_DATA_COMPOSER}:/tmp/composer
-    restart: always
-    cap_add:
-      - SYS_PTRACE
-    networks:
-      - default
+  # php82:
+  #   build:
+  #     context: ./services/php82
+  #     args:
+  #       DEBIAN_MIRROR_DOMAIN: deb.debian.org
+  #       PHP_EXTENSIONS: "$PHP82_EXTENSIONS"
+  #       TZ: "$TZ"
+  #   container_name: php82
+  #   expose:
+  #     - 9501
+  #   volumes:
+  #     - ${SOURCE_DIR}:/www/:rw
+  #     - ${PHP82_PHP_CONF_FILE}:/usr/local/etc/php/php.ini
+  #     - ${PHP82_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf
+  #     - ${PHP82_LOG_DIR}:/var/log/php
+  #     - ${PHP82_DATA_COMPOSER}:/tmp/composer
+  #   restart: always
+  #   cap_add:
+  #     - SYS_PTRACE
+  #   networks:
+  #     - default
 
 #  php80:
 #    build:
@@ -136,26 +136,26 @@ services:
 #      - default
 
 
-#  node23:
-#    build:
-#      context: ./services/node23
-#      args:
-#        NODE_VERSION: node:${NODE_VERSION}
-#    container_name: node23
-#    environment:
-#      - NODE_ENV=development
-#    volumes:
-#      - ${SOURCE_DIR}:/www/:rw
-#    expose:
-#      - "8081"
-#    command:
-#      - /bin/bash
-#    #   networks:
-#    #     - default
-#    network_mode: host
-#    working_dir: /www
-#    stdin_open: true
-#    tty: true
+  node23:
+    build:
+      context: ./services/node23
+      args:
+        NODE_VERSION: node:${NODE_VERSION}
+    container_name: node23
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ${SOURCE_DIR}:/www/:rw
+    expose:
+      - "8081"
+    command:
+      - /bin/bash
+    #   networks:
+    #     - default
+    network_mode: host
+    working_dir: /www
+    stdin_open: true
+    tty: true
 
   mysql:
     image: mysql:${MYSQL_VERSION}
@@ -175,22 +175,22 @@ services:
       MYSQL_ROOT_HOST: "${MYSQL_ROOT_HOST}"
       TZ: "$TZ"
 
-  mysql5:
-    image: mysql:${MYSQL5_VERSION}
-    container_name: mysql5
-    ports:
-      - "${MYSQL5_HOST_PORT}:3306"
-    volumes:
-      - ${MYSQL5_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
-      - ${DATA_DIR}/mysql5:/var/lib/mysql/:rw
-      - ${MYSQL5_LOG_DIR}:/var/log/mysql/:rw
-    restart: always
-    networks:
-      - default
-    environment:
-      MYSQL_ROOT_PASSWORD: "${MYSQL5_ROOT_PASSWORD}"
-      MYSQL_ROOT_HOST: "${MYSQL5_ROOT_HOST}"
-      TZ: "$TZ"
+  # mysql5:
+  #   image: mysql:${MYSQL5_VERSION}
+  #   container_name: mysql5
+  #   ports:
+  #     - "${MYSQL5_HOST_PORT}:3306"
+  #   volumes:
+  #     - ${MYSQL5_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+  #     - ${DATA_DIR}/mysql5:/var/lib/mysql/:rw
+  #     - ${MYSQL5_LOG_DIR}:/var/log/mysql/:rw
+  #   restart: always
+  #   networks:
+  #     - default
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "${MYSQL5_ROOT_PASSWORD}"
+  #     MYSQL_ROOT_HOST: "${MYSQL5_ROOT_HOST}"
+  #     TZ: "$TZ"
 
 #  openresty:
 #    image:  openresty/openresty:${OPENRESTY_VERSION}

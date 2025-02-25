@@ -14,18 +14,13 @@ RUN apk --no-cache add git
 RUN apk --no-cache add bash
 
 # 安装 z 命令
-# RUN apk --no-cache add wget \
-#     && wget -qO /usr/local/bin/z.sh https://raw.githubusercontent.com/rupa/z/master/z.sh \
-#     && chmod +x /usr/local/bin/z.sh \
-#     && echo ". /usr/local/bin/z.sh" >> /etc/profile
+RUN apk --no-cache add wget \
+    && wget -qO /usr/local/bin/z.sh https://raw.gitmirror.com/rupa/z/master/z.sh \
+    && chmod +x /usr/local/bin/z.sh \
+    && echo ". /usr/local/bin/z.sh" >> /etc/profile
 
-# RUN echo ". /etc/profile" > ~/.bashrc
-
-# 将本地的 z.sh 文件复制到容器中
-COPY ./scripts/z.sh /usr/local/bin/z.sh
-# 配置并赋予执行权限
-RUN echo ". /usr/local/bin/z.sh" >> /etc/profile && chmod +x /usr/local/bin/z.sh
 RUN echo ". /etc/profile" > ~/.bashrc
+
 
 COPY ./extensions /tmp/extensions
 WORKDIR /tmp/extensions

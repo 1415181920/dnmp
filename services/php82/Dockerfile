@@ -32,10 +32,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ENV COMPOSER_HOME=/tmp/composer
 
 # 安装Z命令
-# 将本地的 z.sh 文件复制到容器中
-COPY ./scripts/z.sh /usr/local/bin/z.sh
-# 配置并赋予执行权限
-RUN echo ". /usr/local/bin/z.sh" >> /etc/profile && chmod +x /usr/local/bin/z.sh
+RUN curl -sSL https://raw.gitmirror.com/rupa/z/master/z.sh -o /usr/local/bin/z.sh \
+    && echo ". /usr/local/bin/z.sh" >> /etc/profile \
+    && chmod +x /usr/local/bin/z.sh
+
+    
+
+RUN echo ". /etc/profile" > ~/.bashrc
 
 
 # Set work directory
